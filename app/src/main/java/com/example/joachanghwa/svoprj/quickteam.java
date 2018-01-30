@@ -49,7 +49,9 @@ public class quickteam  extends Activity implements AdapterView.OnItemClickListe
 
         Object data=customAdapter.getItem(position);
 
-        String message = "데이터를 삭제하시겠습니까?";
+        final EditText et=new EditText (quickteam.this);
+
+        String message = "데이터를 수정/삭제하시겠습니까?";
 
         DialogInterface.OnClickListener deleteListener = new DialogInterface.OnClickListener() {
             @Override
@@ -59,9 +61,20 @@ public class quickteam  extends Activity implements AdapterView.OnItemClickListe
                 customAdapter.notifyDataSetChanged();
             }
         };
+        DialogInterface.OnClickListener editListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                String value=et.getText().toString();
+
+                customAdapter.setItem(value,position);
+                customAdapter.notifyDataSetChanged();
+            }
+        };
         new AlertDialog.Builder(this)
                 .setTitle("projectsvo")
                 .setMessage(Html.fromHtml(message))
+                .setView(et)
+                .setNegativeButton("수정",editListener)
                 .setPositiveButton("삭제",deleteListener)
                 .show();
     }
@@ -141,6 +154,11 @@ class CustomAdapter extends BaseAdapter{
     public void addItem(String txt01){
         CustomData customData = new CustomData(txt01);
         listViewItemList.add(customData);
+    }
+    public void setItem(String txt01,int position){
+        CustomData customData = new CustomData(txt01);
+        this.remove(position);
+        listViewItemList.add(position,customData);
     }
     public void remove(int position){
         listViewItemList.remove(position);
