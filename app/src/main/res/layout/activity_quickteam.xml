@@ -34,7 +34,6 @@
         android:layout_height="match_parent"
         android:divider="#ffcc22"
         android:dividerHeight="1.5dp"
-        android:scrollbars="vertical"
-        android:choiceMode="singleChoice"/>
+        android:scrollbars="vertical" />
 
 </LinearLayout>

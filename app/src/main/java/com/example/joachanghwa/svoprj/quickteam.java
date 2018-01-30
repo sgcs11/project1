@@ -44,6 +44,7 @@ public class quickteam  extends Activity implements AdapterView.OnItemClickListe
 
         mLvList.setOnItemClickListener(this);
     }
+
     public void onItemClick(AdapterView<?> parent, View v, final int position, long id){
 
         Object data=customAdapter.getItem(position);
@@ -52,13 +53,14 @@ public class quickteam  extends Activity implements AdapterView.OnItemClickListe
 
         DialogInterface.OnClickListener deleteListener = new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+            public void onClick(DialogInterface arg0, int arg1) {
 
                 customAdapter.remove(position);
                 customAdapter.notifyDataSetChanged();
             }
         };
-        new AlertDialog.Builder(this).setTitle("projectsvo")
+        new AlertDialog.Builder(this)
+                .setTitle("projectsvo")
                 .setMessage(Html.fromHtml(message))
                 .setPositiveButton("삭제",deleteListener)
                 .show();
@@ -87,8 +89,6 @@ public class quickteam  extends Activity implements AdapterView.OnItemClickListe
 
         }
     }
-
-
 
 }
 
