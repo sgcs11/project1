@@ -19,8 +19,9 @@
 
         <activity android:name="quicksolve"></activity>
         <activity android:name="quickteam"></activity>
-        <activity android:name=".svogame"></activity>
-        <activity android:name=".directinput"></activity>
+        <activity android:name="svogame"></activity>
+        <activity android:name="directinput"></activity>
+        <activity android:name="ResultView"></activity>
     </application>
 
 </manifest>

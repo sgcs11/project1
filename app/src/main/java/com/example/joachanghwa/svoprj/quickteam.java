@@ -23,6 +23,8 @@ public class quickteam  extends Activity implements AdapterView.OnItemClickListe
 
     private EditText mEtInputText;
     private Button mBInputToList;
+    private Button mBCleanList;
+    private Button mBNextList;
     private ListView mLvList;
     private CustomAdapter customAdapter;
 
@@ -34,9 +36,13 @@ public class quickteam  extends Activity implements AdapterView.OnItemClickListe
 
         mEtInputText=(EditText)findViewById(R.id.ed_text);
         mBInputToList=(Button)findViewById(R.id.btn_add);
+        mBCleanList=(Button)findViewById(R.id.btn_clear);
+        mBNextList=(Button)findViewById(R.id.btn_next);
         mLvList=(ListView)findViewById(R.id.listView1);
 
         mBInputToList.setOnClickListener(this);
+        mBCleanList.setOnClickListener(this);
+        mBNextList.setOnClickListener(this);
 
         customAdapter=new CustomAdapter(this);
 
@@ -81,24 +87,47 @@ public class quickteam  extends Activity implements AdapterView.OnItemClickListe
 
     public void onClick(View v){
         switch(v.getId()){
-        case R.id.btn_add:
-            if(mEtInputText.getText().length()==0){
-                Toast.makeText(this,"데이터를 입력하세요.",Toast.LENGTH_SHORT).show();
-            }
-            else{
-                String data=mEtInputText.getText().toString();
+            case R.id.btn_add:
+                if(mEtInputText.getText().length()==0){
+                    Toast.makeText(this,"데이터를 입력하세요.",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    String data=mEtInputText.getText().toString();
 
-                customAdapter.addItem(data);
+                    customAdapter.addItem(data);
 
-               customAdapter.notifyDataSetChanged();
+                   customAdapter.notifyDataSetChanged();
 
-               Toast.makeText(this,"데이터가 추가되었습니다.",Toast.LENGTH_SHORT).show();
+                   Toast.makeText(this,"데이터가 추가되었습니다.",Toast.LENGTH_SHORT).show();
 
-                mEtInputText.setText("");
+                    mEtInputText.setText("");
 
-                mLvList.setSelection(customAdapter.getCount()-1);
-            }
-            break;
+                    mLvList.setSelection(customAdapter.getCount()-1);
+                }
+
+                break;
+            case R.id.btn_clear:
+                String message="초기화하시겠습니까?";
+
+                DialogInterface.OnClickListener clearListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        Toast.makeText(getApplicationContext(),"초기화되었습니다.",Toast.LENGTH_SHORT).show();
+                        customAdapter.cleanItem();
+                        customAdapter.notifyDataSetChanged();
+                    }
+                };
+                new AlertDialog.Builder(this)
+                        .setTitle("projectsvo")
+                        .setMessage(Html.fromHtml(message))
+                        .setPositiveButton("초기화",clearListener)
+                        .show();
+
+                break;
+            case R.id.btn_next:
+
+
+                break;
 
         }
     }
@@ -159,6 +188,9 @@ class CustomAdapter extends BaseAdapter{
         CustomData customData = new CustomData(txt01);
         this.remove(position);
         listViewItemList.add(position,customData);
+    }
+    public void cleanItem(){
+        listViewItemList.clear();
     }
     public void remove(int position){
         listViewItemList.remove(position);
