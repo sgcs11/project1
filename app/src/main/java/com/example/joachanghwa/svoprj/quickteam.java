@@ -58,6 +58,7 @@ public class quickteam  extends Activity implements AdapterView.OnItemClickListe
                 customAdapter.notifyDataSetChanged();
             }
         };
+
         new AlertDialog.Builder(this).setTitle("projectsvo")
                 .setMessage(Html.fromHtml(message))
                 .setPositiveButton("삭제",deleteListener)
@@ -85,6 +86,8 @@ public class quickteam  extends Activity implements AdapterView.OnItemClickListe
             }
             break;
 
+            case R.id.btnEdit:
+                Toast.makeText(this, "테스트", Toast.LENGTH_SHORT);
         }
     }
 
