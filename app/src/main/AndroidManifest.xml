@@ -26,6 +26,7 @@
         <activity android:name="svogame"></activity>
         <activity android:name="directinput"></activity>
         <activity android:name="ResultView"></activity>
+        <activity android:name="crawling"></activity>
 
     </application>
 

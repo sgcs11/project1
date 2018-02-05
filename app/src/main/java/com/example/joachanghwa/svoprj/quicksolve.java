@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -20,6 +21,8 @@ import android.widget.Toast;
 
 public class quicksolve extends Activity {
 
+    public static double latitude;
+    public static double longitude;
     TextView text01;
     private static final int REQUEST_LOCATION=2;
     @Override
@@ -30,10 +33,18 @@ public class quicksolve extends Activity {
         text01 = (TextView) findViewById(R.id.text01);
 
         Button button01 = (Button) findViewById(R.id.button01);
+        Button button02 = (Button) findViewById(R.id.button02);
         button01.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getMyLocation();
+            }
+        });
+        button02.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),crawling.class);
+                startActivity(intent);
             }
         });
     }
@@ -54,7 +65,7 @@ public class quicksolve extends Activity {
     private void getMyLocation() {
         LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        long minTime = 10000;//10초 10000ms
+        long minTime = 5000;//10초 10000ms
         float minDistance = 0;//거리에 상관없이
 
         MyLocationListener listener = new MyLocationListener();
@@ -105,8 +116,8 @@ public class quicksolve extends Activity {
 
         @Override
         public void onLocationChanged(Location location) {
-            double latitude = location.getLatitude();
-            double longitude = location.getLongitude();
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
 
             appendText("현재 위치:"+latitude + ","+longitude);
         }
