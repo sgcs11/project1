@@ -16,50 +16,32 @@ import android.support.v4.app.ActivityCompat;
 import android.text.Html;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class quicksolve extends Activity {
 
     public static double latitude;
     public static double longitude;
-    TextView text01;
     private static final int REQUEST_LOCATION=2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quicksolve);
 
-        text01 = (TextView) findViewById(R.id.text01);
-
         Button button01 = (Button) findViewById(R.id.button01);
         Button button02 = (Button) findViewById(R.id.button02);
         button01.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view) {//뭐 먹을까?
                 getMyLocation();
             }
         });
         button02.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),crawling.class);
-                startActivity(intent);
+
             }
         });
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,String [] permissions, int [] grantResults){
-        if(requestCode==REQUEST_LOCATION){
-            if(grantResults.length==1
-                &&grantResults[0]==PackageManager.PERMISSION_GRANTED){
-               ;
-            }
-            else {
-                ;// Permission was denied or request was cancelled
-            }
-        }
     }
 
     private void getMyLocation() {
@@ -90,27 +72,25 @@ public class quicksolve extends Activity {
                             .setPositiveButton("확인", clearListener)
                             .show();
                 } else {
-
-                    ;//권한을 허가 받을 필요가 없는 경우
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                                    Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_LOCATION);
+                    //권한을 허가 받을 필요가 없는 경우
                 }
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-                                Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_LOCATION);
+
 
             } else {
                 manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, minDistance, listener);
+                Intent intent = new Intent(getApplicationContext(), crawling.class);
+                startActivity(intent);
             }
 
         }
         else{
             manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, minDistance, listener);
+            Intent intent = new Intent(getApplicationContext(), crawling.class);
+            startActivity(intent);
         }
-
-
-        appendText("내 위치를 요청했습니다.");
-    }
-    private void appendText(String msg){
-        text01.append(msg+"\n");
     }
     class MyLocationListener implements LocationListener {
 
@@ -118,8 +98,6 @@ public class quicksolve extends Activity {
         public void onLocationChanged(Location location) {
             latitude = location.getLatitude();
             longitude = location.getLongitude();
-
-            appendText("현재 위치:"+latitude + ","+longitude);
         }
 
         @Override
@@ -135,6 +113,18 @@ public class quicksolve extends Activity {
         @Override
         public void onProviderDisabled(String s) {
 
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,String [] permissions, int [] grantResults){
+        if(requestCode==REQUEST_LOCATION){
+            if(grantResults.length>0
+                    &&grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                //Toast.makeText(getApplicationContext(),permissionflag,Toast.LENGTH_SHORT).show();
+            }
+            else {
+                // Permission was denied or request was cancelled
+            }
         }
     }
 }

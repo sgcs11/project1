@@ -22,7 +22,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="데이터 가져오기"
+        android:text="Retry"
         android:id="@+id/button"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
@@ -30,7 +30,7 @@
     <WebView
         android:id="@+id/webview"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="480dp"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView" />
 
