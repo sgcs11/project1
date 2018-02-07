@@ -2,13 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.joachanghwa.svoprj">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
-        android:name=".globalValueActivity"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -24,10 +22,11 @@
         </activity>
 
         <activity android:name="quicksolve"></activity>
-        <activity android:name=".crowlActivity"></activity>
         <activity android:name="quickteam"></activity>
-        <activity android:name=".svogame"></activity>
-        <activity android:name=".directinput"></activity>
+        <activity android:name="svogame"></activity>
+        <activity android:name="directinput"></activity>
+        <activity android:name="ResultView"></activity>
+        <activity android:name="crawling"></activity>
 
     </application>
 

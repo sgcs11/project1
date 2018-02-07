@@ -23,6 +23,8 @@ public class quickteam  extends Activity implements AdapterView.OnItemClickListe
 
     private EditText mEtInputText;
     private Button mBInputToList;
+    private Button mBCleanList;
+    private Button mBNextList;
     private ListView mLvList;
     private CustomAdapter customAdapter;
 
@@ -34,9 +36,13 @@ public class quickteam  extends Activity implements AdapterView.OnItemClickListe
 
         mEtInputText=(EditText)findViewById(R.id.ed_text);
         mBInputToList=(Button)findViewById(R.id.btn_add);
+        mBCleanList=(Button)findViewById(R.id.btn_clear);
+        mBNextList=(Button)findViewById(R.id.btn_next);
         mLvList=(ListView)findViewById(R.id.listView1);
 
         mBInputToList.setOnClickListener(this);
+        mBCleanList.setOnClickListener(this);
+        mBNextList.setOnClickListener(this);
 
         customAdapter=new CustomAdapter(this);
 
@@ -44,54 +50,87 @@ public class quickteam  extends Activity implements AdapterView.OnItemClickListe
 
         mLvList.setOnItemClickListener(this);
     }
+
     public void onItemClick(AdapterView<?> parent, View v, final int position, long id){
 
         Object data=customAdapter.getItem(position);
 
-        String message = "데이터를 삭제하시겠습니까?";
+        final EditText et=new EditText (quickteam.this);
+
+        String message = "데이터를 수정/삭제하시겠습니까?";
 
         DialogInterface.OnClickListener deleteListener = new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+            public void onClick(DialogInterface arg0, int arg1) {
 
                 customAdapter.remove(position);
                 customAdapter.notifyDataSetChanged();
             }
         };
+        DialogInterface.OnClickListener editListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                String value=et.getText().toString();
 
-        new AlertDialog.Builder(this).setTitle("projectsvo")
+                customAdapter.setItem(value,position);
+                customAdapter.notifyDataSetChanged();
+            }
+        };
+        new AlertDialog.Builder(this)
+                .setTitle("projectsvo")
                 .setMessage(Html.fromHtml(message))
+                .setView(et)
+                .setNegativeButton("수정",editListener)
                 .setPositiveButton("삭제",deleteListener)
                 .show();
     }
 
     public void onClick(View v){
         switch(v.getId()){
-        case R.id.btn_add:
-            if(mEtInputText.getText().length()==0){
-                Toast.makeText(this,"데이터를 입력하세요.",Toast.LENGTH_SHORT).show();
-            }
-            else{
-                String data=mEtInputText.getText().toString();
+            case R.id.btn_add:
+                if(mEtInputText.getText().length()==0){
+                    Toast.makeText(this,"데이터를 입력하세요.",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    String data=mEtInputText.getText().toString();
 
-                customAdapter.addItem(data);
+                    customAdapter.addItem(data);
 
-               customAdapter.notifyDataSetChanged();
+                   customAdapter.notifyDataSetChanged();
 
-               Toast.makeText(this,"데이터가 추가되었습니다.",Toast.LENGTH_SHORT).show();
+                   Toast.makeText(this,"데이터가 추가되었습니다.",Toast.LENGTH_SHORT).show();
 
-                mEtInputText.setText("");
+                    mEtInputText.setText("");
 
-                mLvList.setSelection(customAdapter.getCount()-1);
-            }
-            break;
+                    mLvList.setSelection(customAdapter.getCount()-1);
+                }
 
-            case R.id.btnEdit:
-                Toast.makeText(this, "테스트", Toast.LENGTH_SHORT);
+                break;
+            case R.id.btn_clear:
+                String message="초기화하시겠습니까?";
+
+                DialogInterface.OnClickListener clearListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        Toast.makeText(getApplicationContext(),"초기화되었습니다.",Toast.LENGTH_SHORT).show();
+                        customAdapter.cleanItem();
+                        customAdapter.notifyDataSetChanged();
+                    }
+                };
+                new AlertDialog.Builder(this)
+                        .setTitle("projectsvo")
+                        .setMessage(Html.fromHtml(message))
+                        .setPositiveButton("초기화",clearListener)
+                        .show();
+
+                break;
+            case R.id.btn_next:
+
+
+                break;
+
         }
     }
-
-
 
 }
 
@@ -144,6 +183,14 @@ class CustomAdapter extends BaseAdapter{
     public void addItem(String txt01){
         CustomData customData = new CustomData(txt01);
         listViewItemList.add(customData);
+    }
+    public void setItem(String txt01,int position){
+        CustomData customData = new CustomData(txt01);
+        this.remove(position);
+        listViewItemList.add(position,customData);
+    }
+    public void cleanItem(){
+        listViewItemList.clear();
     }
     public void remove(int position){
         listViewItemList.remove(position);
