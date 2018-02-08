@@ -22,7 +22,17 @@ tools:context="com.example.joachanghwa.svoprj.quicksolve">
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="10dp"
-        android:text="카페 어디갈까?"
+        android:text="뭐 마실까?"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/button03"
+        android:layout_width="103dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:text="뭐 적실까?"
         android:textSize="16dp"
         android:textStyle="bold" />
 

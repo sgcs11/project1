@@ -22,6 +22,10 @@ public class quicksolve extends Activity {
 
     public static double latitude;
     public static double longitude;
+    public static double prelat=0;
+    public static double prelong=0;
+    public static int btn_number;
+    public static int pre_btn_number;
     private static final int REQUEST_LOCATION=2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,16 +34,26 @@ public class quicksolve extends Activity {
 
         Button button01 = (Button) findViewById(R.id.button01);
         Button button02 = (Button) findViewById(R.id.button02);
+        Button button03 = (Button) findViewById(R.id.button03);
         button01.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {//뭐 먹을까?
                 getMyLocation();
+                btn_number=1;
             }
         });
         button02.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                getMyLocation();
+                btn_number=2;
+            }
+        });
+        button03.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                getMyLocation();
+                btn_number=3;
             }
         });
     }
