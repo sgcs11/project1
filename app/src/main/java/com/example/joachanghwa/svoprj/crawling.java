@@ -11,6 +11,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -28,6 +29,7 @@ public class crawling extends AppCompatActivity {
     private String htmlPageUrl="";
     private String cafePageUrl1 = "https://m.store.naver.com/places/listMap?level=top&nlu=%5Bobject%20Object%5D&query=%EC%B9%B4%ED%8E%98&sid=19923805%2C11675200%2C35782036&sortingOrder=distance&viewType=place&x="; //파싱할 홈페이지의 URL주소
     private String alcoholPageUrl1="https://m.store.naver.com/places/listMap?query=%EC%88%A0%EC%A7%91&sid=34706559%2C20259805%2C34541782&level=top&sortingOrder=distance&x=";
+    private String searchPageUrl1="https://m.store.naver.com/places/listMap?level=top&nlu=%5Bobject%20Object%5D&query=search_contents&sid=1079072185%2C1166038785%2C1710676941&sortingOrder=distance&viewType=place&x=";
     private TextView textviewHtmlDocument;
     private String htmlContentInStringFormat="";
     private List<String> nameList=new ArrayList<String>();
@@ -37,6 +39,8 @@ public class crawling extends AppCompatActivity {
     private List<String> distance=new ArrayList<>();
     private WebView webv;
     private Random rand = new Random(System.currentTimeMillis());
+    private int flag;
+    private String abc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +65,10 @@ public class crawling extends AppCompatActivity {
             htmlPageUrl=cafePageUrl1+ quicksolve.longitude+"&y="+ quicksolve.latitude;
         else if(quicksolve.btn_number==3)
             htmlPageUrl=alcoholPageUrl1+ quicksolve.longitude+"&y="+ quicksolve.latitude;
+        else if(quicksolve.btn_number==4) {
+            htmlPageUrl = searchPageUrl1 + quicksolve.longitude + "&y=" + quicksolve.latitude;
+            htmlPageUrl=htmlPageUrl.replace("search_contents",quicksolve.edt_text);
+        }
             JsoupAsyncTask jsoupAsyncTask = new JsoupAsyncTask();
             jsoupAsyncTask.execute();
 
@@ -74,8 +82,12 @@ public class crawling extends AppCompatActivity {
                     htmlPageUrl=cafePageUrl1+ quicksolve.longitude+"&y="+ quicksolve.latitude;
                 else if(quicksolve.btn_number==3)
                     htmlPageUrl=alcoholPageUrl1+ quicksolve.longitude+"&y="+ quicksolve.latitude;
-                JsoupAsyncTask jsoupAsyncTask = new JsoupAsyncTask();
-                jsoupAsyncTask.execute();
+                else if(quicksolve.btn_number==4) {
+                    htmlPageUrl = searchPageUrl1 + quicksolve.longitude + "&y=" + quicksolve.latitude;
+                    htmlPageUrl=htmlPageUrl.replace("search_contents",quicksolve.edt_text);
+                }
+                    JsoupAsyncTask jsoupAsyncTask = new JsoupAsyncTask();
+                    jsoupAsyncTask.execute();
             }
         });
     }
@@ -84,6 +96,7 @@ public class crawling extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
+            flag=0;
             super.onPreExecute();
         }
 
@@ -93,13 +106,22 @@ public class crawling extends AppCompatActivity {
 
                 htmlContentInStringFormat="";
 
-                if(Math.abs(quicksolve.prelat-quicksolve.latitude)>0.0001||Math.abs(quicksolve.prelong-quicksolve.longitude)>0.0001||quicksolve.pre_btn_number!=quicksolve.btn_number) {
+             //   if(Math.abs(quicksolve.prelat-quicksolve.latitude)>0.0001||Math.abs(quicksolve.prelong-quicksolve.longitude)>0.0001||quicksolve.pre_btn_number!=quicksolve.btn_number) {
                     Document doc = Jsoup.connect(htmlPageUrl).get();
 
                     nameList.clear();
                     explainList.clear();
                     concreteList.clear();
                     LinkList.clear();
+
+                    /*
+                abc="";
+                Element erritems = doc.select("title").first();
+                abc=erritems.text().trim();
+                Log.e(this.getClass().getName(),"웹에서 가져온 문자열"+abc);
+                if(abc.equals("")){
+                    flag=1;
+                }*/
 
                     //테스트1
                     if (quicksolve.btn_number == 1) {
@@ -121,7 +143,7 @@ public class crawling extends AppCompatActivity {
                         for (Element e : distitems) {
                             distance.add(e.text().trim());
                         }
-                    } else if (quicksolve.btn_number == 2 || quicksolve.btn_number == 3) {
+                    } else if (quicksolve.btn_number == 2 || quicksolve.btn_number == 3 || quicksolve.btn_number == 4) {
                         Elements items = doc.select("div.list_item.type_common");
                         Elements distitems = items.select("div.address").select("em.distance");
                         Elements items1 = items.select("span.name");
@@ -141,12 +163,13 @@ public class crawling extends AppCompatActivity {
                             concreteList.add(e.text().trim());
                         }
                     }
-                }
 
-                quicksolve.prelat=quicksolve.latitude;
-                quicksolve.prelong=quicksolve.longitude;
-                quicksolve.pre_btn_number=quicksolve.btn_number;
+                    quicksolve.prelat = quicksolve.latitude;
+                    quicksolve.prelong = quicksolve.longitude;
+                    quicksolve.pre_btn_number = quicksolve.btn_number;
+                    //  }
             } catch (IOException e) {
+                flag=1;
                 e.printStackTrace();
             }
             return null;
@@ -155,40 +178,49 @@ public class crawling extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             int idx;
-            String mUrl="https://m.store.naver.com";
-            String mnewUrl="";
+            String mUrl = "https://m.store.naver.com";
+            String mnewUrl = "";
 
-            String temp="";
-            String temp1="";
+            String temp = "";
+            String temp1 = "";
 
-            idx = (int) (rand.nextInt( nameList.size()));
-            temp=distance.get(idx);
-            temp1=concreteList.get(idx);
-
-            if(quicksolve.btn_number==1) {
-                while ( temp1.indexOf("카페") != -1 || temp1.indexOf("술집") != -1) {
-                    idx = (int) (rand.nextInt(nameList.size()));
-                    temp = distance.get(idx);
-                    temp1=concreteList.get(idx);
-                }
-            }
-            else if(quicksolve.btn_number==2){
-                while (temp1.indexOf("방탈출")!=-1||temp1.indexOf("카페")==-1) {
-                    idx = (int) (rand.nextInt(nameList.size()));
-                    temp = distance.get(idx);
-                    temp1=concreteList.get(idx);
-                }
+            if (flag == 1) {
+                Toast.makeText(getApplicationContext(),"검색 결과를 가져올 수 없습니다.", Toast.LENGTH_SHORT).show();
+                return;
             }
 
+            else {
+               // Toast.makeText(getApplicationContext(), abc, Toast.LENGTH_LONG).show();
 
-            htmlContentInStringFormat += nameList.get(idx) + "\n";
-            htmlContentInStringFormat += distance.get(idx);
-            mnewUrl+=mUrl+LinkList.get(idx);
-            mnewUrl=mnewUrl.replace("&entry=pll","");
-            mnewUrl=mnewUrl.replace("detail","detailMap");
+                idx = (int) (rand.nextInt(nameList.size()));
+                temp = distance.get(idx);
+                temp1 = concreteList.get(idx);
 
-            textviewHtmlDocument.setText(htmlContentInStringFormat);
-            webv.loadUrl(mnewUrl);
+                if (quicksolve.btn_number == 1) {
+                    while (temp1.indexOf("카페") != -1 || temp1.indexOf("술집") != -1) {
+                        idx = (int) (rand.nextInt(nameList.size()));
+                        temp = distance.get(idx);
+                        temp1 = concreteList.get(idx);
+                    }
+                } else if (quicksolve.btn_number == 2) {
+                    while (temp1.indexOf("방탈출") != -1 || temp1.indexOf("카페") == -1) {
+                        idx = (int) (rand.nextInt(nameList.size()));
+                        temp = distance.get(idx);
+                        temp1 = concreteList.get(idx);
+                    }
+                }
+
+
+                htmlContentInStringFormat += nameList.get(idx) + "\n";
+                htmlContentInStringFormat += distance.get(idx);
+                mnewUrl += mUrl + LinkList.get(idx);
+                mnewUrl = mnewUrl.replace("&entry=pll", "");
+                mnewUrl = mnewUrl.replace("detail", "detailMap");
+
+                textviewHtmlDocument.setText(htmlContentInStringFormat);
+                webv.loadUrl(mnewUrl);
+            }
+
         }
     }
 
