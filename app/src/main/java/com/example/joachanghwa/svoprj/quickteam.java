@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -18,39 +19,56 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Random;
 
-public class quickteam  extends Activity implements AdapterView.OnItemClickListener,View.OnClickListener{
+public class quickteam extends Activity implements AdapterView.OnItemClickListener,View.OnClickListener{
 
     private EditText mEtInputText;
     private Button mBInputToList;
     private Button mBCleanList;
     private Button mBNextList;
-    private ListView mLvList;
-    private CustomAdapter customAdapter;
+    public static ListView mLvList;
+    public static CustomAdapter_solve_team customAdapter;
+    public static String result;
+
+    public TextView svoText;
+    public static Activity svoAct1;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quickteam);
+        setContentView(R.layout.activity_svogame);
 
-        mEtInputText=(EditText)findViewById(R.id.ed_text);
-        mBInputToList=(Button)findViewById(R.id.btn_add);
-        mBCleanList=(Button)findViewById(R.id.btn_clear);
-        mBNextList=(Button)findViewById(R.id.btn_next);
-        mLvList=(ListView)findViewById(R.id.listView1);
+        mEtInputText=(EditText)findViewById(R.id.ed_text_subject);
+        mBInputToList=(Button)findViewById(R.id.btn_add_subject);
+        mBCleanList=(Button)findViewById(R.id.btn_clear_subject);
+        mBNextList=(Button)findViewById(R.id.btn_next_subject);
+        mLvList=(ListView)findViewById(R.id.listView_subject);
+        svoText=(TextView)findViewById(R.id.svoText);
+
 
         mBInputToList.setOnClickListener(this);
         mBCleanList.setOnClickListener(this);
         mBNextList.setOnClickListener(this);
+        svoText.setText("팀을 쓰시오");
 
-        customAdapter=new CustomAdapter(this);
+        customAdapter=new CustomAdapter_solve_team(this);
 
         mLvList.setAdapter(customAdapter);
 
         mLvList.setOnItemClickListener(this);
     }
 
+    public String getResult(){
+        int idx;
+        int size=customAdapter.getCount();
+        Random random=new Random();
+        idx=random.nextInt(size);
+        result=customAdapter.getstringdata(idx);
+
+        return result;
+    }
     public void onItemClick(AdapterView<?> parent, View v, final int position, long id){
 
         Object data=customAdapter.getItem(position);
@@ -72,12 +90,18 @@ public class quickteam  extends Activity implements AdapterView.OnItemClickListe
             public void onClick(DialogInterface arg0, int arg1) {
                 String value=et.getText().toString();
 
-                customAdapter.setItem(value,position);
-                customAdapter.notifyDataSetChanged();
+                if(et.getText().length() == 0) {
+                    Toast.makeText(quickteam.this, "데이터를 입력하세요.", Toast.LENGTH_SHORT).show();
+                }
+
+                else{
+                    customAdapter.setItem(value,position);
+                    customAdapter.notifyDataSetChanged();
+                }
             }
         };
         new AlertDialog.Builder(this)
-                .setTitle("projectsvo")
+                .setTitle("Team")
                 .setMessage(Html.fromHtml(message))
                 .setView(et)
                 .setNegativeButton("수정",editListener)
@@ -87,7 +111,7 @@ public class quickteam  extends Activity implements AdapterView.OnItemClickListe
 
     public void onClick(View v){
         switch(v.getId()){
-            case R.id.btn_add:
+            case R.id.btn_add_subject:
                 if(mEtInputText.getText().length()==0){
                     Toast.makeText(this,"데이터를 입력하세요.",Toast.LENGTH_SHORT).show();
                 }
@@ -96,9 +120,9 @@ public class quickteam  extends Activity implements AdapterView.OnItemClickListe
 
                     customAdapter.addItem(data);
 
-                   customAdapter.notifyDataSetChanged();
+                    customAdapter.notifyDataSetChanged();
 
-                   Toast.makeText(this,"데이터가 추가되었습니다.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,"데이터가 추가되었습니다.",Toast.LENGTH_SHORT).show();
 
                     mEtInputText.setText("");
 
@@ -106,7 +130,7 @@ public class quickteam  extends Activity implements AdapterView.OnItemClickListe
                 }
 
                 break;
-            case R.id.btn_clear:
+            case R.id.btn_clear_subject:
                 String message="초기화하시겠습니까?";
 
                 DialogInterface.OnClickListener clearListener = new DialogInterface.OnClickListener() {
@@ -118,14 +142,20 @@ public class quickteam  extends Activity implements AdapterView.OnItemClickListe
                     }
                 };
                 new AlertDialog.Builder(this)
-                        .setTitle("projectsvo")
+                        .setTitle("Team")
                         .setMessage(Html.fromHtml(message))
                         .setPositiveButton("초기화",clearListener)
                         .show();
 
                 break;
-            case R.id.btn_next:
-
+            case R.id.btn_next_subject:
+                if(customAdapter.getCount()==0) {
+                    Toast.makeText(getApplicationContext(),"데이터가 없습니다.",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Intent intent = new Intent(getApplicationContext(), quickteam_people.class);
+                    startActivity(intent);
+                }
 
                 break;
 
@@ -134,13 +164,13 @@ public class quickteam  extends Activity implements AdapterView.OnItemClickListe
 
 }
 
-class CustomData{
+class CustomData_solve_team{
     String txt01;
 
-    public CustomData(){
+    public CustomData_solve_team(){
 
     }
-    public CustomData(String txt01){
+    public CustomData_solve_team(String txt01){
         setTxt01(txt01);
     }
 
@@ -153,13 +183,14 @@ class CustomData{
     }
 }
 
-class CustomAdapter extends BaseAdapter{
-    private ArrayList<CustomData> listViewItemList=null;
+
+class CustomAdapter_solve_team extends BaseAdapter{
+    public static ArrayList<CustomData_solve_team> listViewItemList=null;
     private LayoutInflater mInflater=null;
 
-    public CustomAdapter(Context context){
+    public CustomAdapter_solve_team(Context context){
         mInflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        listViewItemList=new ArrayList<CustomData>();
+        listViewItemList=new ArrayList<CustomData_solve_team>();
     }
     @Override
     public int getCount(){
@@ -172,7 +203,7 @@ class CustomAdapter extends BaseAdapter{
             convertView = mInflater.inflate(R.layout.team_item,parent,false);
         }
         TextView textView01=(TextView)convertView.findViewById(R.id.textView1);
-        CustomData customData = listViewItemList.get(position);
+        CustomData_solve_team customData = listViewItemList.get(position);
 
         textView01.setText(customData.getTxt01());
         return convertView;
@@ -181,11 +212,14 @@ class CustomAdapter extends BaseAdapter{
     public long getItemId(int position){return position;}
     public Object getItem(int position){return listViewItemList.get(position);}
     public void addItem(String txt01){
-        CustomData customData = new CustomData(txt01);
+        CustomData_solve_team customData = new CustomData_solve_team(txt01);
         listViewItemList.add(customData);
     }
+    public String getstringdata(int position){
+        return listViewItemList.get(position).getTxt01();
+    }
     public void setItem(String txt01,int position){
-        CustomData customData = new CustomData(txt01);
+        CustomData_solve_team customData = new CustomData_solve_team(txt01);
         this.remove(position);
         listViewItemList.add(position,customData);
     }
@@ -196,4 +230,8 @@ class CustomAdapter extends BaseAdapter{
         listViewItemList.remove(position);
     }
 }
+
+
+
+
 

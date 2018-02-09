@@ -84,8 +84,14 @@ public class directinput  extends Activity implements AdapterView.OnItemClickLis
             public void onClick(DialogInterface arg0, int arg1) {
                 String value=et.getText().toString();
 
-                customAdapter.setItem(value,position);
-                customAdapter.notifyDataSetChanged();
+                if(et.getText().length() == 0) {
+                    Toast.makeText(directinput.this, "데이터를 입력하세요.", Toast.LENGTH_SHORT).show();
+                }
+
+                else{
+                    customAdapter.setItem(value,position);
+                    customAdapter.notifyDataSetChanged();
+                }
             }
         };
         new AlertDialog.Builder(this)

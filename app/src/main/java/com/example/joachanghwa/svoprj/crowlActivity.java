@@ -22,6 +22,7 @@ public class crowlActivity extends AppCompatActivity {
         String resURL = "https://m.store.naver.com/restaurants/listMap?back=false&level=bottom&query=%EB%A7%9B%EC%A7%91&searchQuery=%EB%A7%9B%EC%A7%91&sortingOrder=distance&";
         globalValueActivity gValue = (globalValueActivity)getApplicationContext();
         final String resURL2 = resURL + gValue.getGlobalValue();
+        //crowlText.setText(resURL2);
 
         new Thread(new Runnable(){
             @Override
