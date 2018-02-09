@@ -16,12 +16,19 @@ import android.support.v4.app.ActivityCompat;
 import android.text.Html;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class quicksolve extends Activity {
 
     public static double latitude;
     public static double longitude;
+    public static double prelat=0;
+    public static double prelong=0;
+    public static int btn_number;
+    public static int pre_btn_number;
+    private EditText edt;
+    public static String edt_text;
     private static final int REQUEST_LOCATION=2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,16 +37,39 @@ public class quicksolve extends Activity {
 
         Button button01 = (Button) findViewById(R.id.button01);
         Button button02 = (Button) findViewById(R.id.button02);
+        Button button03 = (Button) findViewById(R.id.button03);
+        Button button04 = (Button) findViewById(R.id.button04);
+
+        edt=(EditText)findViewById(R.id.editText01);
+
         button01.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {//뭐 먹을까?
                 getMyLocation();
+                btn_number=1;
             }
         });
         button02.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                getMyLocation();
+                btn_number=2;
+            }
+        });
+        button03.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                getMyLocation();
+                btn_number=3;
+            }
+        });
+        button04.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                getMyLocation();
+                btn_number=4;
+                edt_text=edt.getText().toString();
+              //  Toast.makeText(getApplicationContext(),edt_text,Toast.LENGTH_LONG).show();
             }
         });
     }
