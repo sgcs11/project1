@@ -1,11 +1,11 @@
 package com.example.joachanghwa.svoprj;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
     }
     public void onClicked4(View v){
         Intent intent=new Intent(getApplicationContext(),directinput.class);
+        startActivity(intent);
+
+    }
+    public void onClicked5(View v){
+        Intent intent=new Intent(getApplicationContext(),svoexplain.class);
         startActivity(intent);
 
     }
