@@ -1,7 +1,6 @@
 package com.example.joachanghwa.svoprj;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,13 +12,14 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class quicksolve extends Activity {
+public class quicksolve extends AppCompatActivity {
 
     public static double latitude;
     public static double longitude;
@@ -33,7 +33,9 @@ public class quicksolve extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("GPS로 정했다");
         setContentView(R.layout.activity_quicksolve);
+
 
         Button button01 = (Button) findViewById(R.id.button01);
         Button button02 = (Button) findViewById(R.id.button02);
