@@ -14,10 +14,10 @@
         android:id="@+id/textView"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
+        android:layout_alignBottom="@+id/button"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:maxLines="100"
         android:background="#ffffff"
+        android:maxLines="100"
         android:scrollbars="vertical"
         android:text="" />
 
@@ -25,8 +25,8 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
         android:background="#5e5e5e"
         android:text="다시 정하기"
         android:textColor="@android:color/background_light"

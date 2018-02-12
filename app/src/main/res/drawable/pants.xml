@@ -5,8 +5,8 @@
         android:color="#0868a5"
         />
     <size
-        android:width="450dp"
-        android:height="400dp"
+        android:width="450sp"
+        android:height="400sp"
         />
 
 
