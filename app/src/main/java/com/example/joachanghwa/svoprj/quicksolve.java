@@ -21,6 +21,9 @@ import android.widget.Toast;
 
 public class quicksolve extends AppCompatActivity {
 
+    LocationManager manager;
+    MyLocationListener listener;
+
     public static double latitude;
     public static double longitude;
     public static double prelat=0;
@@ -30,12 +33,15 @@ public class quicksolve extends AppCompatActivity {
     private EditText edt;
     public static String edt_text;
     private static final int REQUEST_LOCATION=2;
+    private boolean gps_enabled = false;
+    private boolean network_enabled = false;
+
+    private boolean flag=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("GPS로 정했다");
         setContentView(R.layout.activity_quicksolve);
-
 
         Button button01 = (Button) findViewById(R.id.button01);
         Button button02 = (Button) findViewById(R.id.button02);
@@ -77,12 +83,16 @@ public class quicksolve extends AppCompatActivity {
     }
 
     private void getMyLocation() {
-        LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        flag=false;
 
-        long minTime = 5000;//10초 10000ms
-        float minDistance = 0;//거리에 상관없이
+        gps_enabled = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);//GPS 이용가능 여부
+        network_enabled = manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);//Network 이용가능 여부
 
-        MyLocationListener listener = new MyLocationListener();
+        long minTime = 3000;//10초 10000ms
+        float minDistance = 10;//거리에 상관없이
+
+        listener = new MyLocationListener();
 
         if (Build.VERSION.SDK_INT >= 23) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -90,7 +100,7 @@ public class quicksolve extends AppCompatActivity {
 
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION) && ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION)) {
                     ;//이 권한이 필요한 이유에 대해 설명을 해야 한다.
-                    String message = "GPS정보를 이용하여 주변의 음식점을 추천받을 수 있습니다.";
+                    String message = "GPS정보를 이용하여 주변의 음식점을 추천받을 수 있습니다. 기능을 사용하려면 환경설정에서 GPS 권한을 설정해주십시오.";
 
                     DialogInterface.OnClickListener clearListener = new DialogInterface.OnClickListener() {
                         @Override
@@ -99,7 +109,7 @@ public class quicksolve extends AppCompatActivity {
                         }
                     };
                     new AlertDialog.Builder(this)
-                            .setTitle("projectsvo")
+                            .setTitle("GPS 정보 수신")
                             .setMessage(Html.fromHtml(message))
                             .setPositiveButton("확인", clearListener)
                             .show();
@@ -112,16 +122,14 @@ public class quicksolve extends AppCompatActivity {
 
 
             } else {
-                manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, minDistance, listener);
-                Intent intent = new Intent(getApplicationContext(), crawling.class);
-                startActivity(intent);
+                    manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, minDistance, listener);
+                    manager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, minTime, minDistance, listener);
             }
 
         }
         else{
-            manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, minDistance, listener);
-            Intent intent = new Intent(getApplicationContext(), crawling.class);
-            startActivity(intent);
+                manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, minDistance, listener);
+                manager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, minTime, minDistance, listener);
         }
     }
     class MyLocationListener implements LocationListener {
@@ -130,6 +138,12 @@ public class quicksolve extends AppCompatActivity {
         public void onLocationChanged(Location location) {
             latitude = location.getLatitude();
             longitude = location.getLongitude();
+            manager.removeUpdates(listener);
+            if(flag==false) {
+                flag=true;
+                Intent intent = new Intent(getApplicationContext(), crawling.class);
+                startActivity(intent);
+            }
         }
 
         @Override
