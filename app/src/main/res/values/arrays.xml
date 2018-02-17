@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <string-array name="game_svo">
+        <item>주어</item>
+        <item>서술어</item>
+        <item>목적어</item>
+    </string-array>
+
+    <string-array name="array_quickteam">
+        <item>팀</item>
+        <item>팀원</item>
+    </string-array>
+
+</resources>
