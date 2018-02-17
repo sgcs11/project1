@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#75c3f7"
+    tools:context=".svogameResult">
+
+    <LinearLayout
+        android:id="@+id/layout_1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="2dp"
+            android:background="#ffffff">
+
+            <Spinner
+                android:id="@+id/spinner_svo"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/inputText"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_weight="3"
+            android:background="#ffffff"
+            android:ems="10" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="2dp"
+            android:background="#ffffff">
+
+            <Button
+                android:id="@+id/btn_add_text"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:layout_weight="1"
+                android:background="#5e5e5e"
+                android:text="추가"
+                android:textColor="@android:color/background_light" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/layout_2"
+        android:layout_below="@id/layout_1"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/sView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:gravity="center_horizontal|center_vertical"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/sReset"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="onClickedRetryS"
+                android:text="주어만 다시 정하기"
+                android:background="#5e5e5e"
+                android:textColor="@android:color/background_light" />
+
+            <Button
+                android:id="@+id/sDelete"
+                android:layout_width="105dp"
+                android:layout_height="match_parent"
+                android:text=" 현재 주어 삭제 "
+                android:onClick="onClickedDeleteS"
+                android:background="#808080"
+                android:textColor="@android:color/background_light"/>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/vView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="20dp"
+            android:background="#ffffff"
+            android:gravity="center_horizontal|center_vertical"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/vReset"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="onClickedRetryV"
+                android:text=" 서술어만 다시 정하기 "
+                android:background="#5e5e5e"
+                android:textColor="@android:color/background_light" />
+
+            <Button
+                android:id="@+id/vDelete"
+                android:layout_width="105dp"
+                android:layout_height="match_parent"
+                android:text=" 현재 서술어 삭제 "
+                android:onClick="onClickedDeleteV"
+                android:background="#808080"
+                android:textColor="@android:color/background_light" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/oView"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_weight="1"
+            android:layout_marginTop="20dp"
+            android:background="#ffffff"
+            android:gravity="center_horizontal|center_vertical"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/oReset"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="onClickedRetryO"
+                android:text="목적어만 다시 정하기"
+                android:background="#5e5e5e"
+                android:textColor="@android:color/background_light" />
+
+            <Button
+                android:id="@+id/oDelete"
+                android:layout_width="105dp"
+                android:layout_height="match_parent"
+                android:text=" 현재 목적어 삭제 "
+                android:onClick="onClickedDeleteO"
+                android:background="#808080"
+                android:textColor="@android:color/background_light" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/layout_2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/closeButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginRight="10dp"
+            android:background="#5e5e5e"
+            android:textColor="@android:color/background_light"
+            android:onClick="onClickedFinish"
+            android:text="메인메뉴로 돌아가기" />
+
+        <Button
+            android:id="@+id/allReset"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:background="#5e5e5e"
+            android:textColor="@android:color/background_light"
+            android:onClick="onClickedReset"
+            android:text="전체 다시 정하기" />
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#75c3f7"
-    tools:context=".ResultView">
+    tools:context=".quickteam_result">
 
     <LinearLayout
         android:id="@+id/layout_1"
@@ -17,6 +17,20 @@
         android:layout_marginRight="20dp"
         android:orientation="horizontal"
         android:layout_alignParentTop="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="2dp"
+            android:background="#ffffff">
+
+            <Spinner
+                android:id="@+id/spinner_quickteam"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp" />
+
+        </LinearLayout>
 
         <EditText
             android:id="@+id/inputText"
@@ -49,7 +63,7 @@
     </LinearLayout>
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/layout_2"
@@ -59,28 +73,42 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
-        android:orientation="vertical"
         android:background="#ffffff"
-        android:gravity="center_horizontal|center_vertical">
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/resultView"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal|center_vertical"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:layout_centerVertical="true">
 
-        <Button
-            android:id="@+id/delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="#5e5e5e"
-            android:text="삭제"
-            android:onClick="onClickedDelete"
-            android:textColor="@android:color/background_light"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    </LinearLayout>
+                <HorizontalScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/peopleView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent" />
+
+                    </LinearLayout>
+
+                </HorizontalScrollView>
+
+            </RelativeLayout>
+
+        </ScrollView>
+
+    </RelativeLayout>
 
 
     <LinearLayout
@@ -95,25 +123,25 @@
         android:layout_alignParentBottom="true">
 
         <Button
-            android:id="@+id/returnTo"
+            android:id="@+id/finishButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:layout_marginRight="10dp"
             android:background="#5e5e5e"
             android:textColor="@android:color/background_light"
-            android:onClick="onClickedReturn"
+            android:onClick="onClickedFinish_quickteam"
             android:text="메인메뉴로 돌아가기" />
 
         <Button
-            android:id="@+id/retry"
+            android:id="@+id/resetButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:layout_marginLeft="10dp"
             android:background="#5e5e5e"
             android:textColor="@android:color/background_light"
-            android:onClick="onClickedRetry"
+            android:onClick="onClickedReset_quickteam"
             android:text="다시 정하기" />
 
     </LinearLayout>
