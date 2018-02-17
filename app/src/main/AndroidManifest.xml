@@ -21,7 +21,7 @@
         <activity android:name="quicksolve"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"
+            android:windowSoftInputMode="adjustResize"
             ></activity>
         <activity android:name="quickteam"
             android:configChanges="orientation|keyboardHidden|screenSize"
