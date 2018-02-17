@@ -1,11 +1,11 @@
 package com.example.joachanghwa.svoprj;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +21,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class quickteam_people extends Activity implements AdapterView.OnItemClickListener,View.OnClickListener{
+public class quickteam_people extends AppCompatActivity implements AdapterView.OnItemClickListener,View.OnClickListener{
 
     private EditText mEtInputText;
     private Button mBInputToList;
@@ -31,13 +31,11 @@ public class quickteam_people extends Activity implements AdapterView.OnItemClic
     public static CustomAdapter_solve_people customAdapter;
     public static String result;
 
-    public TextView svoText;
-    public static Activity svoAct1;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("팀 정하기 - 팀원을 입력하세요");
         setContentView(R.layout.activity_svogame);
 
         mEtInputText=(EditText)findViewById(R.id.ed_text_subject);
@@ -45,19 +43,18 @@ public class quickteam_people extends Activity implements AdapterView.OnItemClic
         mBCleanList=(Button)findViewById(R.id.btn_clear_subject);
         mBNextList=(Button)findViewById(R.id.btn_next_subject);
         mLvList=(ListView)findViewById(R.id.listView_subject);
-        svoText=(TextView)findViewById(R.id.svoText);
-
 
         mBInputToList.setOnClickListener(this);
         mBCleanList.setOnClickListener(this);
         mBNextList.setOnClickListener(this);
-        svoText.setText("팀원을 쓰시오");
 
         customAdapter=new CustomAdapter_solve_people(this);
 
         mLvList.setAdapter(customAdapter);
 
         mLvList.setOnItemClickListener(this);
+
+        mBNextList.setText("결과 표시");
     }
 
     public String getResult(){
@@ -101,7 +98,7 @@ public class quickteam_people extends Activity implements AdapterView.OnItemClic
             }
         };
         new AlertDialog.Builder(this)
-                .setTitle("People")
+                .setTitle(customAdapter.getstringdata(position))
                 .setMessage(Html.fromHtml(message))
                 .setView(et)
                 .setNegativeButton("수정",editListener)
@@ -142,7 +139,6 @@ public class quickteam_people extends Activity implements AdapterView.OnItemClic
                     }
                 };
                 new AlertDialog.Builder(this)
-                        .setTitle("People")
                         .setMessage(Html.fromHtml(message))
                         .setPositiveButton("초기화",clearListener)
                         .show();

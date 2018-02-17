@@ -29,7 +29,8 @@
             android:screenOrientation="portrait"></activity>"
         <activity android:name="quickteam_result"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing"></activity>
         <activity android:name="svogame"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>

@@ -31,10 +31,13 @@ public class directinput  extends AppCompatActivity implements AdapterView.OnIte
     public static CustomAdapter_solve customAdapter;
     public static String result;
 
+    public int deletePosition;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("입력으로 정했다");
         setContentView(R.layout.activity_directinput);
 
         mEtInputText=(EditText)findViewById(R.id.ed_text_solve);
@@ -61,8 +64,24 @@ public class directinput  extends AppCompatActivity implements AdapterView.OnIte
           idx=random.nextInt(size);
           result=customAdapter.getstringdata(idx);
 
+          deletePosition = idx;
+
         return result;
     }
+
+    public int getDelete(){
+
+        if(customAdapter.getCount() == 1)
+            return 0;
+
+
+        else {
+            customAdapter.remove(deletePosition);
+            customAdapter.notifyDataSetChanged();
+            return 1;
+        }
+    }
+
     public void onItemClick(AdapterView<?> parent, View v, final int position, long id){
 
         Object data=customAdapter.getItem(position);
@@ -79,6 +98,7 @@ public class directinput  extends AppCompatActivity implements AdapterView.OnIte
                 customAdapter.notifyDataSetChanged();
             }
         };
+
         DialogInterface.OnClickListener editListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
@@ -94,8 +114,9 @@ public class directinput  extends AppCompatActivity implements AdapterView.OnIte
                 }
             }
         };
+
         new AlertDialog.Builder(this)
-                .setTitle("projectsvo")
+                .setTitle(customAdapter.getstringdata(position))
                 .setMessage(Html.fromHtml(message))
                 .setView(et)
                 .setNegativeButton("수정",editListener)
@@ -105,6 +126,7 @@ public class directinput  extends AppCompatActivity implements AdapterView.OnIte
 
     public void onClick(View v){
         switch(v.getId()){
+
             case R.id.btn_add_solve:
                 if(mEtInputText.getText().length()==0){
                     Toast.makeText(this,"데이터를 입력하세요.",Toast.LENGTH_SHORT).show();
@@ -125,7 +147,7 @@ public class directinput  extends AppCompatActivity implements AdapterView.OnIte
 
                 break;
             case R.id.btn_clear_solve:
-                String message="초기화하시겠습니까?";
+                String message="리스트를 초기화하시겠습니까?";
 
                 DialogInterface.OnClickListener clearListener = new DialogInterface.OnClickListener() {
                     @Override
@@ -136,7 +158,6 @@ public class directinput  extends AppCompatActivity implements AdapterView.OnIte
                     }
                 };
                 new AlertDialog.Builder(this)
-                        .setTitle("projectsvo")
                         .setMessage(Html.fromHtml(message))
                         .setPositiveButton("초기화",clearListener)
                         .show();

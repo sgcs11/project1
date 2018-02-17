@@ -1,11 +1,11 @@
 package com.example.joachanghwa.svoprj;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +21,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class svogame2 extends Activity implements AdapterView.OnItemClickListener,View.OnClickListener{
+public class svogame2 extends AppCompatActivity implements AdapterView.OnItemClickListener,View.OnClickListener{
 
     private EditText mEtInputText;
     private Button mBInputToList;
@@ -31,13 +31,12 @@ public class svogame2 extends Activity implements AdapterView.OnItemClickListene
     public static CustomAdapter_solve_2 customAdapter;
     public static String result;
 
-    public TextView svoText;
-    public static Activity svoAct2;
-
+    public int deletePosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("주술목 게임 - 서술어를 입력하세요");
         setContentView(R.layout.activity_svogame);
 
         mEtInputText=(EditText)findViewById(R.id.ed_text_subject);
@@ -45,14 +44,10 @@ public class svogame2 extends Activity implements AdapterView.OnItemClickListene
         mBCleanList=(Button)findViewById(R.id.btn_clear_subject);
         mBNextList=(Button)findViewById(R.id.btn_next_subject);
         mLvList=(ListView)findViewById(R.id.listView_subject);
-        svoText=(TextView)findViewById(R.id.svoText);
-
 
         mBInputToList.setOnClickListener(this);
         mBCleanList.setOnClickListener(this);
         mBNextList.setOnClickListener(this);
-        svoText.setText("술어");
-        svoAct2 = svogame2.this;
 
         customAdapter=new CustomAdapter_solve_2(this);
 
@@ -68,8 +63,24 @@ public class svogame2 extends Activity implements AdapterView.OnItemClickListene
         idx=random.nextInt(size);
         result=customAdapter.getstringdata(idx);
 
+        deletePosition = idx;
+
         return result;
     }
+
+    public int getDelete(){
+
+        if(customAdapter.getCount() == 1)
+            return 0;
+
+
+        else {
+            customAdapter.remove(deletePosition);
+            customAdapter.notifyDataSetChanged();
+            return 1;
+        }
+    }
+
     public void onItemClick(AdapterView<?> parent, View v, final int position, long id){
 
         Object data=customAdapter.getItem(position);
@@ -86,6 +97,7 @@ public class svogame2 extends Activity implements AdapterView.OnItemClickListene
                 customAdapter.notifyDataSetChanged();
             }
         };
+
         DialogInterface.OnClickListener editListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
@@ -101,8 +113,9 @@ public class svogame2 extends Activity implements AdapterView.OnItemClickListene
                 }
             }
         };
+
         new AlertDialog.Builder(this)
-                .setTitle("Verb")
+                .setTitle(customAdapter.getstringdata(position))
                 .setMessage(Html.fromHtml(message))
                 .setView(et)
                 .setNegativeButton("수정",editListener)
@@ -112,6 +125,7 @@ public class svogame2 extends Activity implements AdapterView.OnItemClickListene
 
     public void onClick(View v){
         switch(v.getId()){
+
             case R.id.btn_add_subject:
                 if(mEtInputText.getText().length()==0){
                     Toast.makeText(this,"데이터를 입력하세요.",Toast.LENGTH_SHORT).show();
@@ -132,7 +146,7 @@ public class svogame2 extends Activity implements AdapterView.OnItemClickListene
 
                 break;
             case R.id.btn_clear_subject:
-                String message="초기화하시겠습니까?";
+                String message="리스트를 초기화하시겠습니까?";
 
                 DialogInterface.OnClickListener clearListener = new DialogInterface.OnClickListener() {
                     @Override
@@ -143,7 +157,6 @@ public class svogame2 extends Activity implements AdapterView.OnItemClickListene
                     }
                 };
                 new AlertDialog.Builder(this)
-                        .setTitle("Verb")
                         .setMessage(Html.fromHtml(message))
                         .setPositiveButton("초기화",clearListener)
                         .show();
@@ -183,7 +196,6 @@ class CustomData_solve_2{
         return this.txt01;
     }
 }
-
 
 class CustomAdapter_solve_2 extends BaseAdapter{
     private ArrayList<CustomData_solve_2> listViewItemList=null;
