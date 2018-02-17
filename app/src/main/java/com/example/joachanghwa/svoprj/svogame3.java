@@ -55,7 +55,7 @@ public class svogame3 extends AppCompatActivity implements AdapterView.OnItemCli
 
         mLvList.setOnItemClickListener(this);
 
-        mBNextList.setText("결과 표시");
+        mBNextList.setText("결과 보기");
     }
 
     public String getResult(){

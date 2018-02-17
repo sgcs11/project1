@@ -54,7 +54,7 @@ public class quickteam_people extends AppCompatActivity implements AdapterView.O
 
         mLvList.setOnItemClickListener(this);
 
-        mBNextList.setText("결과 표시");
+        mBNextList.setText("결과 보기");
     }
 
     public String getResult(){
