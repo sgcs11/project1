@@ -197,18 +197,23 @@ public class crawling extends AppCompatActivity {
                 temp = distance.get(idx);
                 temp1 = concreteList.get(idx);
 
-                if (quicksolve.btn_number == 1) {
-                    while (temp1.indexOf("카페") != -1 || temp1.indexOf("술집") != -1) {
-                        idx = (int) (rand.nextInt(nameList.size()));
-                        temp = distance.get(idx);
-                        temp1 = concreteList.get(idx);
+                try {
+                    if (quicksolve.btn_number == 1) {
+                        while (temp1.indexOf("카페") != -1 || temp1.indexOf("술집") != -1) {
+                            idx = (int) (rand.nextInt(nameList.size()));
+                            temp = distance.get(idx);
+                            temp1 = concreteList.get(idx);
+                        }
+                    } else if (quicksolve.btn_number == 2) {
+                        while (temp1.indexOf("방탈출") != -1 || temp1.indexOf("카페") == -1) {
+                            idx = (int) (rand.nextInt(nameList.size()));
+                            temp = distance.get(idx);
+                            temp1 = concreteList.get(idx);
+                        }
                     }
-                } else if (quicksolve.btn_number == 2) {
-                    while (temp1.indexOf("방탈출") != -1 || temp1.indexOf("카페") == -1) {
-                        idx = (int) (rand.nextInt(nameList.size()));
-                        temp = distance.get(idx);
-                        temp1 = concreteList.get(idx);
-                    }
+                }
+                catch (Exception e){
+                    return;
                 }
 
 
