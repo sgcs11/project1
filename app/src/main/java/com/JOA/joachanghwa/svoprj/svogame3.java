@@ -1,4 +1,4 @@
-package com.example.joachanghwa.svoprj;
+package com.JOA.joachanghwa.svoprj;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -21,14 +21,14 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class svogame extends AppCompatActivity implements AdapterView.OnItemClickListener,View.OnClickListener{
+public class svogame3 extends AppCompatActivity implements AdapterView.OnItemClickListener,View.OnClickListener{
 
     private EditText mEtInputText;
     private Button mBInputToList;
     private Button mBCleanList;
     private Button mBNextList;
     public static ListView mLvList;
-    public static CustomAdapter_solve_1 customAdapter;
+    public static CustomAdapter_solve_3 customAdapter;
     public static String result;
 
     public int deletePosition;
@@ -36,7 +36,7 @@ public class svogame extends AppCompatActivity implements AdapterView.OnItemClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("주술목 게임 - 주어를 입력하세요");
+        setTitle("주술목 게임 - 목적어를 입력하세요");
         setContentView(R.layout.activity_svogame);
 
         mEtInputText=(EditText)findViewById(R.id.ed_text_subject);
@@ -49,11 +49,13 @@ public class svogame extends AppCompatActivity implements AdapterView.OnItemClic
         mBCleanList.setOnClickListener(this);
         mBNextList.setOnClickListener(this);
 
-        customAdapter=new CustomAdapter_solve_1(this);
+        customAdapter=new CustomAdapter_solve_3(this);
 
         mLvList.setAdapter(customAdapter);
 
         mLvList.setOnItemClickListener(this);
+
+        mBNextList.setText("결과 보기");
     }
 
     public String getResult(){
@@ -69,6 +71,7 @@ public class svogame extends AppCompatActivity implements AdapterView.OnItemClic
     }
 
     public int getDelete(){
+
         if(customAdapter.getCount() == 1)
             return 0;
 
@@ -84,7 +87,7 @@ public class svogame extends AppCompatActivity implements AdapterView.OnItemClic
 
         Object data=customAdapter.getItem(position);
 
-        final EditText et=new EditText (svogame.this);
+        final EditText et=new EditText (svogame3.this);
 
         String message = "데이터를 수정/삭제하시겠습니까?";
 
@@ -103,7 +106,7 @@ public class svogame extends AppCompatActivity implements AdapterView.OnItemClic
                 String value=et.getText().toString();
 
                 if(et.getText().length() == 0) {
-                    Toast.makeText(svogame.this, "데이터를 입력하세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(svogame3.this, "데이터를 입력하세요.", Toast.LENGTH_SHORT).show();
                 }
 
                 else{
@@ -145,7 +148,7 @@ public class svogame extends AppCompatActivity implements AdapterView.OnItemClic
 
                 break;
             case R.id.btn_clear_subject:
-                String message="리스트를 초기화하시겠습니까?";
+                String message="초기화하시겠습니까?";
 
                 DialogInterface.OnClickListener clearListener = new DialogInterface.OnClickListener() {
                     @Override
@@ -166,7 +169,7 @@ public class svogame extends AppCompatActivity implements AdapterView.OnItemClic
                     Toast.makeText(getApplicationContext(),"데이터가 없습니다.",Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    Intent intent = new Intent(getApplicationContext(), svogame2.class);
+                    Intent intent = new Intent(getApplicationContext(), svogameResult.class);
                     startActivity(intent);
                 }
 
@@ -177,13 +180,13 @@ public class svogame extends AppCompatActivity implements AdapterView.OnItemClic
 
 }
 
-class CustomData_solve_1{
+class CustomData_solve_3{
     String txt01;
 
-    public CustomData_solve_1(){
+    public CustomData_solve_3(){
 
     }
-    public CustomData_solve_1(String txt01){
+    public CustomData_solve_3(String txt01){
         setTxt01(txt01);
     }
 
@@ -196,13 +199,13 @@ class CustomData_solve_1{
     }
 }
 
-class CustomAdapter_solve_1 extends BaseAdapter{
-    private ArrayList<CustomData_solve_1> listViewItemList=null;
+class CustomAdapter_solve_3 extends BaseAdapter{
+    private ArrayList<CustomData_solve_3> listViewItemList=null;
     private LayoutInflater mInflater=null;
 
-    public CustomAdapter_solve_1(Context context){
+    public CustomAdapter_solve_3(Context context){
         mInflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        listViewItemList=new ArrayList<CustomData_solve_1>();
+        listViewItemList=new ArrayList<CustomData_solve_3>();
     }
     @Override
     public int getCount(){
@@ -215,7 +218,7 @@ class CustomAdapter_solve_1 extends BaseAdapter{
             convertView = mInflater.inflate(R.layout.team_item,parent,false);
         }
         TextView textView01=(TextView)convertView.findViewById(R.id.textView1);
-        CustomData_solve_1 customData = listViewItemList.get(position);
+        CustomData_solve_3 customData = listViewItemList.get(position);
 
         textView01.setText(customData.getTxt01());
         return convertView;
@@ -224,14 +227,14 @@ class CustomAdapter_solve_1 extends BaseAdapter{
     public long getItemId(int position){return position;}
     public Object getItem(int position){return listViewItemList.get(position);}
     public void addItem(String txt01){
-        CustomData_solve_1 customData = new CustomData_solve_1(txt01);
+        CustomData_solve_3 customData = new CustomData_solve_3(txt01);
         listViewItemList.add(customData);
     }
     public String getstringdata(int position){
         return listViewItemList.get(position).getTxt01();
     }
     public void setItem(String txt01,int position){
-        CustomData_solve_1 customData = new CustomData_solve_1(txt01);
+        CustomData_solve_3 customData = new CustomData_solve_3(txt01);
         this.remove(position);
         listViewItemList.add(position,customData);
     }
@@ -242,6 +245,5 @@ class CustomAdapter_solve_1 extends BaseAdapter{
         listViewItemList.remove(position);
     }
 }
-
 
 

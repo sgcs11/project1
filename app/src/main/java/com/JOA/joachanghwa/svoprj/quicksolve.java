@@ -1,4 +1,4 @@
-package com.example.joachanghwa.svoprj;
+package com.JOA.joachanghwa.svoprj;
 
 import android.Manifest;
 import android.app.AlertDialog;

@@ -1,4 +1,4 @@
-package com.example.joachanghwa.svoprj;
+package com.JOA.joachanghwa.svoprj;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -21,51 +21,50 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class svogame3 extends AppCompatActivity implements AdapterView.OnItemClickListener,View.OnClickListener{
+public class directinput  extends AppCompatActivity implements AdapterView.OnItemClickListener,View.OnClickListener{
 
     private EditText mEtInputText;
     private Button mBInputToList;
     private Button mBCleanList;
     private Button mBNextList;
     public static ListView mLvList;
-    public static CustomAdapter_solve_3 customAdapter;
+    public static CustomAdapter_solve customAdapter;
     public static String result;
 
     public int deletePosition;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("주술목 게임 - 목적어를 입력하세요");
-        setContentView(R.layout.activity_svogame);
+        setTitle("입력으로 정했다");
+        setContentView(R.layout.activity_directinput);
 
-        mEtInputText=(EditText)findViewById(R.id.ed_text_subject);
-        mBInputToList=(Button)findViewById(R.id.btn_add_subject);
-        mBCleanList=(Button)findViewById(R.id.btn_clear_subject);
-        mBNextList=(Button)findViewById(R.id.btn_next_subject);
-        mLvList=(ListView)findViewById(R.id.listView_subject);
+        mEtInputText=(EditText)findViewById(R.id.ed_text_solve);
+        mBInputToList=(Button)findViewById(R.id.btn_add_solve);
+        mBCleanList=(Button)findViewById(R.id.btn_clear_solve);
+        mBNextList=(Button)findViewById(R.id.btn_next_solve);
+        mLvList=(ListView)findViewById(R.id.listView_solve);
 
         mBInputToList.setOnClickListener(this);
         mBCleanList.setOnClickListener(this);
         mBNextList.setOnClickListener(this);
 
-        customAdapter=new CustomAdapter_solve_3(this);
+        customAdapter=new CustomAdapter_solve(this);
 
         mLvList.setAdapter(customAdapter);
 
         mLvList.setOnItemClickListener(this);
-
-        mBNextList.setText("결과 보기");
     }
 
     public String getResult(){
         int idx;
         int size=customAdapter.getCount();
-        Random random=new Random();
-        idx=random.nextInt(size);
-        result=customAdapter.getstringdata(idx);
+          Random random=new Random();
+          idx=random.nextInt(size);
+          result=customAdapter.getstringdata(idx);
 
-        deletePosition = idx;
+          deletePosition = idx;
 
         return result;
     }
@@ -87,7 +86,7 @@ public class svogame3 extends AppCompatActivity implements AdapterView.OnItemCli
 
         Object data=customAdapter.getItem(position);
 
-        final EditText et=new EditText (svogame3.this);
+        final EditText et=new EditText (directinput.this);
 
         String message = "데이터를 수정/삭제하시겠습니까?";
 
@@ -106,7 +105,7 @@ public class svogame3 extends AppCompatActivity implements AdapterView.OnItemCli
                 String value=et.getText().toString();
 
                 if(et.getText().length() == 0) {
-                    Toast.makeText(svogame3.this, "데이터를 입력하세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(directinput.this, "데이터를 입력하세요.", Toast.LENGTH_SHORT).show();
                 }
 
                 else{
@@ -128,7 +127,7 @@ public class svogame3 extends AppCompatActivity implements AdapterView.OnItemCli
     public void onClick(View v){
         switch(v.getId()){
 
-            case R.id.btn_add_subject:
+            case R.id.btn_add_solve:
                 if(mEtInputText.getText().length()==0){
                     Toast.makeText(this,"데이터를 입력하세요.",Toast.LENGTH_SHORT).show();
                 }
@@ -147,8 +146,8 @@ public class svogame3 extends AppCompatActivity implements AdapterView.OnItemCli
                 }
 
                 break;
-            case R.id.btn_clear_subject:
-                String message="초기화하시겠습니까?";
+            case R.id.btn_clear_solve:
+                String message="리스트를 초기화하시겠습니까?";
 
                 DialogInterface.OnClickListener clearListener = new DialogInterface.OnClickListener() {
                     @Override
@@ -164,14 +163,14 @@ public class svogame3 extends AppCompatActivity implements AdapterView.OnItemCli
                         .show();
 
                 break;
-            case R.id.btn_next_subject:
-                if(customAdapter.getCount()==0) {
-                    Toast.makeText(getApplicationContext(),"데이터가 없습니다.",Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Intent intent = new Intent(getApplicationContext(), svogameResult.class);
-                    startActivity(intent);
-                }
+            case R.id.btn_next_solve:
+                    if(customAdapter.getCount()==0) {
+                        Toast.makeText(getApplicationContext(),"데이터가 없습니다.",Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Intent intent = new Intent(getApplicationContext(), ResultView.class);
+                        startActivity(intent);
+                         }
 
                 break;
 
@@ -180,13 +179,13 @@ public class svogame3 extends AppCompatActivity implements AdapterView.OnItemCli
 
 }
 
-class CustomData_solve_3{
+class CustomData_solve{
     String txt01;
 
-    public CustomData_solve_3(){
+    public CustomData_solve(){
 
     }
-    public CustomData_solve_3(String txt01){
+    public CustomData_solve(String txt01){
         setTxt01(txt01);
     }
 
@@ -199,13 +198,13 @@ class CustomData_solve_3{
     }
 }
 
-class CustomAdapter_solve_3 extends BaseAdapter{
-    private ArrayList<CustomData_solve_3> listViewItemList=null;
+class CustomAdapter_solve extends BaseAdapter{
+    private ArrayList<CustomData_solve> listViewItemList=null;
     private LayoutInflater mInflater=null;
 
-    public CustomAdapter_solve_3(Context context){
+    public CustomAdapter_solve(Context context){
         mInflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        listViewItemList=new ArrayList<CustomData_solve_3>();
+        listViewItemList=new ArrayList<CustomData_solve>();
     }
     @Override
     public int getCount(){
@@ -218,7 +217,7 @@ class CustomAdapter_solve_3 extends BaseAdapter{
             convertView = mInflater.inflate(R.layout.team_item,parent,false);
         }
         TextView textView01=(TextView)convertView.findViewById(R.id.textView1);
-        CustomData_solve_3 customData = listViewItemList.get(position);
+        CustomData_solve customData = listViewItemList.get(position);
 
         textView01.setText(customData.getTxt01());
         return convertView;
@@ -227,14 +226,14 @@ class CustomAdapter_solve_3 extends BaseAdapter{
     public long getItemId(int position){return position;}
     public Object getItem(int position){return listViewItemList.get(position);}
     public void addItem(String txt01){
-        CustomData_solve_3 customData = new CustomData_solve_3(txt01);
+        CustomData_solve customData = new CustomData_solve(txt01);
         listViewItemList.add(customData);
     }
     public String getstringdata(int position){
         return listViewItemList.get(position).getTxt01();
     }
     public void setItem(String txt01,int position){
-        CustomData_solve_3 customData = new CustomData_solve_3(txt01);
+        CustomData_solve customData = new CustomData_solve(txt01);
         this.remove(position);
         listViewItemList.add(position,customData);
     }

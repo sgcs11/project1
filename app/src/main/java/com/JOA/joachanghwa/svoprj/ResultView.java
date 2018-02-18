@@ -1,4 +1,4 @@
-package com.example.joachanghwa.svoprj;
+package com.JOA.joachanghwa.svoprj;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,8 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import javax.xml.transform.Result;
 
 public class ResultView extends AppCompatActivity {
 

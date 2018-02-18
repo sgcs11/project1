@@ -1,4 +1,4 @@
-package com.example.joachanghwa.svoprj;
+package com.JOA.joachanghwa.svoprj;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#75c3f7"
-    tools:context="com.example.joachanghwa.svoprj.MainActivity">
+    tools:context="com.JOA.joachanghwa.svoprj.MainActivity">
 
     <Button
         android:id="@+id/button3"

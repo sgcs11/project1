@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.joachanghwa.svoprj">
+    package="com.JOA.joachanghwa.svoprj">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -8,55 +8,55 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/이미지아이콘"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
+        <activity android:name="com.JOA.joachanghwa.svoprj.MainActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="quicksolve"
+        <activity android:name="com.JOA.joachanghwa.svoprj.quicksolve"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             ></activity>
-        <activity android:name="quickteam"
+        <activity android:name="com.JOA.joachanghwa.svoprj.quickteam"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
-        <activity android:name="quickteam_people"
+        <activity android:name="com.JOA.joachanghwa.svoprj.quickteam_people"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>"
-        <activity android:name="quickteam_result"
+        <activity android:name="com.JOA.joachanghwa.svoprj.quickteam_result"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing"></activity>
-        <activity android:name="svogame"
+        <activity android:name="com.JOA.joachanghwa.svoprj.svogame"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
-        <activity android:name="svogame2"
+        <activity android:name="com.JOA.joachanghwa.svoprj.svogame2"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
-        <activity android:name="svogame3"
+        <activity android:name="com.JOA.joachanghwa.svoprj.svogame3"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
-        <activity android:name="svogameResult"
+        <activity android:name="com.JOA.joachanghwa.svoprj.svogameResult"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
-        <activity android:name="directinput"
+        <activity android:name="com.JOA.joachanghwa.svoprj.directinput"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
-        <activity android:name="ResultView"
+        <activity android:name="com.JOA.joachanghwa.svoprj.ResultView"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
-        <activity android:name="crawling"
+        <activity android:name="com.JOA.joachanghwa.svoprj.crawling"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
-        <activity android:name="svoexplain"
+        <activity android:name="com.JOA.joachanghwa.svoprj.svoexplain"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
-        <activity android:name="StartActivity"
+        <activity android:name="com.JOA.joachanghwa.svoprj.StartActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait">
             <intent-filter>
