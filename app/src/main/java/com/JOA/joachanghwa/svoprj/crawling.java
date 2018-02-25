@@ -45,7 +45,7 @@ public class crawling extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("GPS로 정했다 - 결과");
+        setTitle("주변 먹거리 검색 - 결과");
         setContentView(R.layout.activity_crawling);
 
         textviewHtmlDocument = (TextView)findViewById(R.id.textView);

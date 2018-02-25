@@ -37,7 +37,7 @@ public class directinput  extends AppCompatActivity implements AdapterView.OnIte
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("입력으로 정했다");
+        setTitle("항목 직접 입력");
         setContentView(R.layout.activity_directinput);
 
         mEtInputText=(EditText)findViewById(R.id.ed_text_solve);

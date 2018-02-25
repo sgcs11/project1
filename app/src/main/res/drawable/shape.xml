@@ -3,11 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
     <solid
-        android:color="#e0e0e0"
+        android:color="#DEAF6F"
         />
     <size
-        android:width="84sp"
-        android:height="84sp"
+        android:width="125sp"
+        android:height="300sp"
         />
 
 </shape>

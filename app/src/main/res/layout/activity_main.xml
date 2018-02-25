@@ -9,47 +9,47 @@
 
     <Button
         android:id="@+id/button3"
-        android:layout_width="123dp"
-        android:layout_height="40dp"
+        android:layout_width="140dp"
+        android:layout_height="45dp"
         android:layout_above="@+id/button5"
         android:layout_alignStart="@+id/button5"
         android:layout_marginBottom="50dp"
         android:background="#5e5e5e"
         android:onClick="onClicked2"
-        android:text="팀 정했다"
+        android:text="팀 정하기"
         android:textColor="@android:color/background_light"
         android:textStyle="bold" />
 
     <Button
         android:id="@+id/button4"
-        android:layout_width="123dp"
-        android:layout_height="40dp"
+        android:layout_width="140dp"
+        android:layout_height="45dp"
         android:layout_above="@+id/button3"
         android:layout_alignStart="@+id/button3"
         android:layout_marginBottom="50dp"
         android:background="#5e5e5e"
         android:onClick="onClicked1"
-        android:text="GPS로 정했다"
+        android:text="주변 먹거리 검색"
         android:textColor="@android:color/background_light"
         android:textStyle="bold" />
 
     <Button
         android:id="@+id/button5"
-        android:layout_width="123dp"
-        android:layout_height="40dp"
+        android:layout_width="140dp"
+        android:layout_height="45dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_marginBottom="50dp"
         android:background="#5e5e5e"
         android:onClick="onClicked4"
-        android:text="입력으로 정했다"
+        android:text="항목 직접 입력"
         android:textColor="@android:color/background_light"
         android:textStyle="bold" />
 
     <Button
         android:id="@+id/button"
-        android:layout_width="123dp"
-        android:layout_height="40dp"
+        android:layout_width="140dp"
+        android:layout_height="45dp"
         android:layout_alignStart="@+id/button5"
         android:layout_below="@+id/button5"
         android:layout_marginTop="0dp"
@@ -61,7 +61,7 @@
 
     <Button
         android:id="@+id/button7"
-        android:layout_width="123dp"
+        android:layout_width="150dp"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"

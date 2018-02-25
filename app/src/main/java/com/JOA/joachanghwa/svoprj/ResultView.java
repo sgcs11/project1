@@ -20,7 +20,7 @@ public class ResultView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("입력으로 정했다 - 결과");
+        setTitle("항목 직접 입력 - 결과");
         setContentView(R.layout.activity_result);
 
         inputText = (EditText)findViewById(R.id.inputText);

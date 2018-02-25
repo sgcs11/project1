@@ -40,7 +40,7 @@ public class quicksolve extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("GPS로 정했다");
+        setTitle("주변 먹거리 검색");
         setContentView(R.layout.activity_quicksolve);
 
         Button button01 = (Button) findViewById(R.id.button01);
